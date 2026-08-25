@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMG Equilíbrio — Seu aliado na jornada ao equilíbrio</title>
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum-950:#1A0F17;
+    --plum-800:#3A1E30;
+    --magenta-700:#6F1B58;
+    --magenta-500:#A9227E;
+    --magenta-300:#D0499E;
+    --citrus-500:#E8792E;
+    --citrus-300:#F5B47A;
+    --cream-50:#FBF3EE;
+    --white:#FFFFFF;
+    --ink:#241019;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream-50);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 22px;}}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--citrus-500);outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    mix-blend-mode:difference;
+    color:var(--white);
+  }
+  .nav-brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.1rem;letter-spacing:0.02em;}
+  .nav-brand img{width:30px;height:30px;border-radius:50%;}
+  .nav-links{display:flex;gap:28px;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;}
+  .nav-links a{opacity:0.85;transition:opacity .25s;}
+  .nav-links a:hover{opacity:1;}
+  @media(max-width:640px){.nav-links{display:none;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    background:
+      radial-gradient(120% 90% at 78% 15%, rgba(232,121,46,0.25), transparent 55%),
+      radial-gradient(140% 120% at 15% 100%, var(--magenta-500) 0%, var(--magenta-700) 38%, var(--plum-950) 78%);
+    overflow:hidden;
+    padding-top:96px;
+  }
+  .hero-grain{
+    position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-inner{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;
+    width:100%;
+  }
+  @media(max-width:900px){.hero-inner{grid-template-columns:1fr;text-align:center;}}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--citrus-300);margin-bottom:26px;font-weight:700;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--citrus-300);}
+  @media(max-width:900px){.eyebrow{justify-content:center;}}
+  .hero h1{
+    color:var(--white);
+    font-size:clamp(2.6rem,6vw,4.6rem);
+    line-height:1.02;
+    font-weight:400;
+  }
+  .hero h1 em{font-style:italic;font-weight:300;color:var(--citrus-300);}
+  .hero p.lede{
+    color:rgba(255,255,255,0.78);
+    font-size:1.08rem;line-height:1.6;
+    margin-top:24px;max-width:460px;
+  }
+  @media(max-width:900px){.hero p.lede{margin-left:auto;margin-right:auto;}}
+  .hero-cta{display:flex;gap:16px;align-items:center;margin-top:38px;flex-wrap:wrap;}
+  @media(max-width:900px){.hero-cta{justify-content:center;}}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 30px;border-radius:100px;
+    font-size:0.92rem;font-weight:700;letter-spacing:0.01em;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+  }
+  .btn-primary{
+    background:var(--citrus-500);color:var(--plum-950);
+    box-shadow:0 10px 30px -8px rgba(232,121,46,0.6);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px -8px rgba(232,121,46,0.75);}
+  .btn-ghost{color:var(--white);border:1px solid rgba(255,255,255,0.35);padding:15px 26px;}
+  .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,0.08);}
+  .hero-price{margin-top:18px;color:rgba(255,255,255,0.65);font-size:0.85rem;}
+  .hero-price strong{color:var(--white);font-size:1rem;}
+
+  .hero-visual{position:relative;display:flex;justify-content:center;}
+  .bottle-frame{
+    position:relative;width:min(340px,80vw);
+    border-radius:28px;overflow:hidden;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .bottle-frame img{width:100%;height:auto;object-fit:cover;}
+  .float-badge{
+    position:absolute;
+    background:var(--white);color:var(--plum-950);
+    border-radius:16px;padding:12px 16px;
+    font-size:0.78rem;font-weight:700;line-height:1.3;
+    box-shadow:0 16px 40px -12px rgba(0,0,0,0.4);
+  }
+  .float-badge.b1{top:6%;left:-8%;}
+  .float-badge.b2{bottom:8%;right:-10%;text-align:right;}
+  .float-badge small{display:block;font-weight:500;color:var(--magenta-700);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
+  @media(max-width:900px){.float-badge{display:none;}}
+
+  .scroll-cue{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,0.55);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(rgba(255,255,255,0.6),transparent);}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background:var(--plum-950);color:rgba(255,255,255,0.55);
+    padding:16px 0;overflow:hidden;white-space:nowrap;font-size:0.82rem;letter-spacing:0.08em;
+    border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .marquee-track{display:inline-flex;gap:48px;animation:scroll-left 28s linear infinite;}
+  .marquee-track span{display:inline-flex;align-items:center;gap:48px;}
+  .marquee-track span::after{content:"✦";color:var(--citrus-500);}
+  @keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:120px 0;}
+  @media(max-width:640px){section{padding:80px 0;}}
+  .section-head{max-width:640px;margin-bottom:72px;}
+  .section-head .eyebrow{color:var(--magenta-500);}
+  .section-head .eyebrow::before{background:var(--magenta-500);}
+  .section-head h2{font-size:clamp(2rem,4vw,3rem);line-height:1.1;color:var(--plum-950);}
+  .section-head p{margin-top:18px;font-size:1.05rem;color:#5c4655;line-height:1.6;max-width:520px;}
+
+  /* ---------- ACTIVES / SIGNATURE ---------- */
+  .actives{background:var(--plum-950);color:var(--white);position:relative;}
+  .actives .section-head .eyebrow{color:var(--citrus-300);}
+  .actives .section-head .eyebrow::before{background:var(--citrus-300);}
+  .actives .section-head h2{color:var(--white);}
+  .actives .section-head p{color:rgba(255,255,255,0.65);}
+
+  .capsule-stage{
+    position:relative;
+    height:340px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:64px;
+  }
+  .capsule{
+    position:relative;width:120px;height:52px;border-radius:26px;
+    background:linear-gradient(90deg, var(--white) 0 50%, var(--magenta-500) 50% 100%);
+    box-shadow:0 20px 50px -10px rgba(169,34,126,0.5);
+  }
+  .capsule::before{
+    content:"";position:absolute;inset:0;border-radius:26px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.35), transparent 40%);
+  }
+  .capsule-half{
+    position:absolute;top:50%;width:60px;height:52px;
+  }
+  .capsule-half.left{left:calc(50% - 60px);border-radius:26px 0 0 26px;transform-origin:right center;}
+  .capsule-half.right{left:50%;border-radius:0 26px 26px 0;transform-origin:left center;}
+
+  .actives-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  }
+  @media(max-width:860px){.actives-grid{grid-template-columns:1fr;}}
+  .active-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;padding:34px 28px;
+    opacity:0;transform:translateY(40px);
+  }
+  .active-card .num{font-family:'Fraunces',serif;font-style:italic;font-size:2.2rem;color:var(--citrus-300);opacity:0.8;}
+  .active-card h3{font-size:1.25rem;margin-top:10px;color:var(--white);font-weight:500;}
+  .active-card p{margin-top:12px;font-size:0.92rem;line-height:1.6;color:rgba(255,255,255,0.62);}
+  .active-card .tag{
+    display:inline-block;margin-top:18px;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+    padding:6px 12px;border-radius:100px;border:1px solid rgba(255,255,255,0.18);color:var(--citrus-300);
+  }
+
+  /* ---------- BENEFITS ---------- */
+  .benefits{background:var(--cream-50);}
+  .benefits-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(36,16,25,0.1);border-radius:24px;overflow:hidden;}
+  @media(max-width:900px){.benefits-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.benefits-grid{grid-template-columns:1fr;}}
+  .benefit{
+    background:var(--white);padding:40px 30px;
+    opacity:0;transform:translateY(30px);
+  }
+  .benefit .icon{
+    width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(135deg,var(--magenta-500),var(--magenta-700));
+    display:flex;align-items:center;justify-content:center;color:white;font-size:1.1rem;font-family:'Fraunces',serif;
+    margin-bottom:22px;
+  }
+  .benefit h3{font-size:1.05rem;font-weight:600;font-family:'Manrope',sans-serif;color:var(--plum-950);}
+  .benefit p{margin-top:10px;font-size:0.88rem;color:#6b5563;line-height:1.55;}
+
+  /* ---------- STORY / SPLIT ---------- */
+  .story{background:var(--white);}
+  .story-inner{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:center;}
+  @media(max-width:900px){.story-inner{grid-template-columns:1fr;}}
+  .story-img{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(36,16,25,0.35);}
+  .story-img img{width:100%;}
+  .story-copy .eyebrow{color:var(--magenta-500);}
+  .story-copy .eyebrow::before{background:var(--magenta-500);}
+  .story-copy h2{font-size:clamp(1.9rem,3.4vw,2.6rem);color:var(--plum-950);line-height:1.15;}
+  .story-copy p{margin-top:22px;font-size:1.02rem;line-height:1.7;color:#5c4655;}
+  .story-list{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+  .story-list li{display:flex;gap:12px;align-items:flex-start;font-size:0.95rem;color:var(--ink);}
+  .story-list li::before{content:"◆";color:var(--citrus-500);font-size:0.6rem;margin-top:6px;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi{background:var(--plum-950);color:white;position:relative;overflow:hidden;}
+  .testi::before{
+    content:"“";position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+    font-family:'Fraunces',serif;font-size:26rem;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;
+  }
+  .testi-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;position:relative;z-index:1;}
+  .testi-track::-webkit-scrollbar{height:6px;}
+  .testi-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:10px;}
+  .testi-card{
+    scroll-snap-align:start;min-width:320px;max-width:360px;
+    background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;padding:32px;flex-shrink:0;
+  }
+  .testi-card .stars{color:var(--citrus-300);font-size:0.9rem;letter-spacing:2px;}
+  .testi-card p{margin-top:18px;font-size:0.98rem;line-height:1.65;color:rgba(255,255,255,0.85);}
+  .testi-card .who{margin-top:22px;font-size:0.82rem;color:rgba(255,255,255,0.55);font-weight:600;}
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final{
+    background:linear-gradient(140deg, var(--magenta-500), var(--magenta-700) 60%, var(--plum-950));
+    color:white;text-align:center;position:relative;overflow:hidden;
+  }
+  .cta-final .wrap{position:relative;z-index:1;}
+  .cta-final h2{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.08;max-width:760px;margin:0 auto;}
+  .cta-final h2 em{color:var(--citrus-300);font-style:italic;font-weight:300;}
+  .cta-final p{margin:24px auto 0;max-width:480px;color:rgba(255,255,255,0.78);font-size:1.05rem;}
+  .cta-final .btn-primary{margin-top:40px;}
+  .price-tag{
+    display:inline-flex;align-items:baseline;gap:8px;margin-top:28px;
+    font-family:'Fraunces',serif;
+  }
+  .price-tag .old{font-size:1.1rem;text-decoration:line-through;color:rgba(255,255,255,0.5);}
+  .price-tag .new{font-size:2.4rem;color:white;}
+  .price-tag .new sup{font-size:1.2rem;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--plum-950);color:rgba(255,255,255,0.5);padding:56px 0 36px;font-size:0.85rem;}
+  .footer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .footer-brand{display:flex;align-items:center;gap:10px;color:white;font-family:'Fraunces',serif;font-size:1.05rem;}
+  .footer-brand img{width:26px;height:26px;border-radius:50%;}
+  .footer-links{display:flex;gap:24px;}
+  .footer-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-brand"><img src="assets/logo.jpg" alt=""> GMG Equilíbrio</div>
+  <nav class="nav-links">
+    <a href="#ativos">Ativos</a>
+    <a href="#beneficios">Benefícios</a>
+    <a href="#depoimentos">Depoimentos</a>
+    <a href="#oferta">Oferta</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Suplemento em cápsulas · GMG</span>
+      <h1 data-hero-title>Equilíbrio<br>começa <em>por dentro.</em></h1>
+      <p class="lede">Três ativos, um propósito: ajudar seu corpo a encontrar o ritmo — metabolismo, apetite e energia trabalhando a seu favor, todos os dias.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#oferta">Quero meu equilíbrio</a>
+        <a class="btn btn-ghost" href="#ativos">Ver os ativos ↓</a>
+      </div>
+      <p class="hero-price">Frasco com 30 cápsulas · a partir de <strong>R$ 69,90</strong></p>
+    </div>
+    <div class="hero-visual">
+      <div class="bottle-frame" data-hero-bottle>
+        <img src="assets/bottle-hero.png" alt="Frasco GMG Equilíbrio com 30 cápsulas, contendo ácido clorogênico, extrato de laranja moro e picolinato de cromo">
+      </div>
+      <div class="float-badge b1"><small>Ativo 01</small>Ácido Clorogênico</div>
+      <div class="float-badge b2"><small>30 dias</small>1 cápsula ao dia</div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Role</span><div class="line"></div></div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Ácido Clorogênico</span>
+    <span>Extrato de Laranja Moro</span>
+    <span>Picolinato de Cromo</span>
+    <span>30 cápsulas por frasco</span>
+    <span>Ácido Clorogênico</span>
+    <span>Extrato de Laranja Moro</span>
+    <span>Picolinato de Cromo</span>
+    <span>30 cápsulas por frasco</span>
+  </div>
+</div>
+
+<section class="actives" id="ativos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">A fórmula</span>
+      <h2>Uma cápsula, três ativos trabalhando juntos.</h2>
+      <p>Cada dose reúne extratos selecionados por um único critério: contribuir de forma real para o equilíbrio do seu metabolismo.</p>
+    </div>
+
+    <div class="capsule-stage">
+      <div class="capsule" data-capsule>
+        <div class="capsule-half left" data-half-left></div>
+        <div class="capsule-half right" data-half-right></div>
+      </div>
+    </div>
+
+    <div class="actives-grid">
+      <div class="active-card" data-active>
+        <span class="num">01</span>
+        <h3>Ácido Clorogênico</h3>
+        <p>Composto natural do café verde, associado ao apoio no metabolismo de gorduras e no controle glicêmico.</p>
+        <span class="tag">Metabolismo</span>
+      </div>
+      <div class="active-card" data-active>
+        <span class="num">02</span>
+        <h3>Extrato de Laranja Moro</h3>
+        <p>Rico em antocianinas, a laranja siciliana contribui para a saciedade e para o equilíbrio energético do corpo.</p>
+        <span class="tag">Saciedade</span>
+      </div>
+      <div class="active-card" data-active>
+        <span class="num">03</span>
+        <h3>Picolinato de Cromo</h3>
+        <p>Mineral que auxilia na regulação do açúcar no sangue e na manutenção do metabolismo dos macronutrientes.</p>
+        <span class="tag">Regulação</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits" id="beneficios">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Por que GMG</span>
+      <h2>Feito para caber na sua rotina, não o contrário.</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit" data-benefit>
+        <div class="icon">1</div>
+        <h3>Uma cápsula ao dia</h3>
+        <p>Sem protocolos complicados. Uma dose, junto de uma refeição.</p>
+      </div>
+      <div class="benefit" data-benefit>
+        <div class="icon">2</div>
+        <h3>Fórmula concentrada</h3>
+        <p>Ativos dosados para atuar em conjunto, não isoladamente.</p>
+      </div>
+      <div class="benefit" data-benefit>
+        <div class="icon">3</div>
+        <h3>Sem estimulantes</h3>
+        <p>Nada de picos de energia seguidos de queda. Progresso constante.</p>
+      </div>
+      <div class="benefit" data-benefit>
+        <div class="icon">4</div>
+        <h3>Acompanhamento real</h3>
+        <p>Comunidade ativa no Instagram para tirar dúvidas e trocar resultados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="wrap story-inner">
+    <div class="story-img" data-parallax>
+      <img src="assets/bottle-clean.png" alt="Frasco GMG Equilíbrio sobre superfície escura">
+    </div>
+    <div class="story-copy">
+      <span class="eyebrow">A jornada</span>
+      <h2>Equilíbrio não é um evento. É uma prática diária.</h2>
+      <p>GMG nasceu para quem já tentou de tudo e só queria algo simples, sério e sustentável. Sem promessas milagrosas — só ciência, consistência e um frasco que cabe na bolsa.</p>
+      <ul class="story-list">
+        <li>Ingredientes com respaldo em estudos de metabolismo</li>
+        <li>Cápsulas em porções fáceis de manter por 30 dias</li>
+        <li>Recomendado por quem já sente a diferença</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="testi" id="depoimentos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" style="color:var(--citrus-300)">Quem já vive o equilíbrio</span>
+      <h2 style="color:white">Resultado contado por quem sentiu.</h2>
+    </div>
+    <div class="testi-track">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Desde que comecei sinto que tenho muito mais disposição, especialmente para o trabalho e os treinos. Me ajudou muito a manter minha dieta, ele também ajuda a controlar minha fome."</p>
+        <div class="who">Isabella Toni</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"O que mais gostei foi a simplicidade: uma cápsula, sem sabor estranho, sem crash de energia. Consigo manter a rotina sem esforço."</p>
+        <div class="who">Cliente GMG</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Percebi diferença no apetite já nas primeiras semanas. Virou parte da minha manhã, junto com o café."</p>
+        <div class="who">Cliente GMG</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Comprei pela indicação de uma amiga e recomendo. Frasco bonito, entrega rápida e resultado real."</p>
+        <div class="who">Cliente GMG</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="oferta">
+  <div class="wrap">
+    <span class="eyebrow" style="color:rgba(255,255,255,0.8)">Oferta do dia</span>
+    <h2>Seu equilíbrio <em>começa hoje.</em></h2>
+    <p>Frasco com 30 cápsulas — o suficiente para um ciclo completo de consistência.</p>
+    <div class="price-tag">
+      <span class="old">R$ 99,90</span>
+      <span class="new"><sup>R$</sup> 69,90</span>
+    </div>
+    <div>
+      <a class="btn btn-primary" href="https://www.instagram.com/gmgequilibrio/" target="_blank" rel="noopener">Garantir meu frasco →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand"><img src="assets/logo.jpg" alt=""> GMG Equilíbrio</div>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/gmgequilibrio/" target="_blank" rel="noopener">Instagram</a>
+        <a href="#ativos">Ativos</a>
+        <a href="#oferta">Comprar</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 GMG Equilíbrio. Todos os direitos reservados.</span>
+      <span>Este produto não substitui uma alimentação equilibrada e hábitos de vida saudáveis.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(!reduceMotion){
+    // Hero entrance
+    gsap.timeline({defaults:{ease:'power3.out'}})
+      .from('[data-hero-title]', {y:40, opacity:0, duration:1})
+      .from('.hero-copy .lede', {y:20, opacity:0, duration:.8}, '-=0.6')
+      .from('.hero-copy .hero-cta', {y:20, opacity:0, duration:.8}, '-=0.55')
+      .from('.hero-copy .hero-price', {opacity:0, duration:.6}, '-=0.4')
+      .from('[data-hero-bottle]', {y:60, opacity:0, scale:.94, duration:1.1}, '-=0.9')
+      .from('.float-badge', {opacity:0, y:14, stagger:.15, duration:.6}, '-=0.5');
+
+    gsap.to('[data-hero-bottle]', {
+      y: -20, ease:'none',
+      scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+    });
+
+    // Signature capsule split animation
+    ScrollTrigger.create({
+      trigger:'.capsule-stage',
+      start:'top 70%',
+      end:'bottom 30%',
+      scrub:1,
+      onUpdate:self=>{
+        const p = self.progress;
+        gsap.set('[data-half-left]', {x:-p*90, rotate:-p*18});
+        gsap.set('[data-half-right]', {x:p*90, rotate:p*18});
+        gsap.set('[data-capsule]', {opacity:1-p*0.15});
+      }
+    });
+
+    gsap.utils.toArray('[data-active]').forEach((el,i)=>{
+      gsap.to(el, {
+        opacity:1, y:0, duration:.8, ease:'power3.out', delay:i*0.08,
+        scrollTrigger:{trigger:'.capsule-stage', start:'center 60%'}
+      });
+    });
+
+    gsap.utils.toArray('[data-benefit]').forEach((el,i)=>{
+      gsap.to(el, {
+        opacity:1, y:0, duration:.7, ease:'power3.out',
+        scrollTrigger:{trigger:el, start:'top 88%'},
+        delay:(i%4)*0.06
+      });
+    });
+
+    gsap.to('[data-parallax] img', {
+      yPercent:-8, ease:'none',
+      scrollTrigger:{trigger:'.story', start:'top bottom', end:'bottom top', scrub:true}
+    });
+
+    gsap.utils.toArray('.testi-card').forEach((el,i)=>{
+      gsap.from(el, {
+        opacity:0, y:30, duration:.7, ease:'power3.out', delay:i*0.06,
+        scrollTrigger:{trigger:'.testi-track', start:'top 85%'}
+      });
+    });
+  } else {
+    document.querySelectorAll('[data-active],[data-benefit]').forEach(el=>{el.style.opacity=1;el.style.transform='none';});
+  }
+</script>
+</body>
+</html>
